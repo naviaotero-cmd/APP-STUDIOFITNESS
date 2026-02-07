@@ -23,6 +23,7 @@ export interface Achievement {
 export interface GymClass {
   id: string;
   name: string;
+  description: string;
   duration: string;
   level: string;
   capacity: number;
@@ -30,6 +31,24 @@ export interface GymClass {
   coachId: string;
   time: string;
   day: string;
+}
+
+export interface Exercise {
+  id: string;
+  name: string;
+  explanation: string;
+  imageUrl: string;
+  sets: string;
+  reps: string;
+}
+
+export interface WorkoutRoutine {
+  id: string;
+  title: string;
+  description: string;
+  category: 'Fuerza' | 'Flexibilidad' | 'Cardio' | 'Usuario';
+  exercises: Exercise[];
+  isCustom?: boolean;
 }
 
 export interface Trainer {

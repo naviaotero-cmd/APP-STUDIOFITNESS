@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Calendar, Weight, CreditCard, LogOut, Dumbbell } from 'lucide-react';
+import { LayoutDashboard, Calendar, Weight, CreditCard, LogOut, Dumbbell, Zap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Layout: React.FC = () => {
@@ -11,6 +11,7 @@ const Layout: React.FC = () => {
   const navItems = [
     { path: '/dashboard', icon: LayoutDashboard, label: 'Inicio' },
     { path: '/classes', icon: Calendar, label: 'Clases' },
+    { path: '/workouts', icon: Zap, label: 'Entrenamientos' },
     { path: '/weight', icon: Weight, label: 'Progreso' },
     { path: '/membership', icon: CreditCard, label: 'Plan' },
   ];

@@ -3,7 +3,7 @@ import React from 'react';
 import { useFitness } from '../context/FitnessContext';
 import { useAuth } from '../context/AuthContext';
 import { TRAINERS_DATA } from '../constants';
-import { Clock, Users, ChevronRight, CheckCircle, Info } from 'lucide-react';
+import { Clock, Users, ChevronRight, CheckCircle, Info, Book } from 'lucide-react';
 
 const ClassesScreen: React.FC = () => {
   const { classes, userBookings, bookClass, cancelBooking } = useFitness();
@@ -42,6 +42,10 @@ const ClassesScreen: React.FC = () => {
                 </div>
 
                 <h3 className="text-2xl font-black text-slate-900 mb-2">{cls.name}</h3>
+                
+                <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6 line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
+                  {cls.description}
+                </p>
                 
                 <div className="flex items-center gap-4 text-slate-500 text-sm font-semibold mb-6">
                   <div className="flex items-center gap-1.5">

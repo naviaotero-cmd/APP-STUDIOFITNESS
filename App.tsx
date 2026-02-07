@@ -6,6 +6,7 @@ import { FitnessProvider } from './context/FitnessContext';
 import LoginScreen from './screens/LoginScreen';
 import Dashboard from './screens/Dashboard';
 import ClassesScreen from './screens/ClassesScreen';
+import WorkoutsScreen from './screens/WorkoutsScreen';
 import MembershipScreen from './screens/MembershipScreen';
 import WeightTracker from './screens/WeightTracker';
 import Layout from './components/Layout';
@@ -46,6 +47,7 @@ const App: React.FC = () => {
               <Route index element={<Dashboard />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="classes" element={<ClassesScreen />} />
+              <Route path="workouts" element={<WorkoutsScreen />} />
               <Route path="weight" element={<WeightTracker />} />
               <Route path="membership" element={<MembershipScreen />} />
             </Route>

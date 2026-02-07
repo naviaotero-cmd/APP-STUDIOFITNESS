@@ -1,13 +1,17 @@
 
-import React, { createContext, useContext, useState } from 'react';
-import { GymClass, Booking } from '../types';
-import { CLASSES_DATA } from '../constants';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { GymClass, Booking, WorkoutRoutine } from '../types';
+import { CLASSES_DATA, PREDEFINED_WORKOUTS } from '../constants';
 
 interface FitnessContextType {
   classes: GymClass[];
   userBookings: Booking[];
+  customWorkouts: WorkoutRoutine[];
+  predefinedWorkouts: WorkoutRoutine[];
   bookClass: (classId: string, userId: string) => void;
   cancelBooking: (bookingId: string) => void;
+  addCustomWorkout: (workout: Omit<WorkoutRoutine, 'id'>) => void;
+  deleteCustomWorkout: (id: string) => void;
 }
 
 const FitnessContext = createContext<FitnessContextType | undefined>(undefined);
@@ -15,6 +19,12 @@ const FitnessContext = createContext<FitnessContextType | undefined>(undefined);
 export const FitnessProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [classes, setClasses] = useState<GymClass[]>(CLASSES_DATA);
   const [userBookings, setUserBookings] = useState<Booking[]>([]);
+  const [customWorkouts, setCustomWorkouts] = useState<WorkoutRoutine[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('studiofitness_custom_workouts');
+    if (saved) setCustomWorkouts(JSON.parse(saved));
+  }, []);
 
   const bookClass = (classId: string, userId: string) => {
     const targetClass = classes.find(c => c.id === classId);
@@ -56,8 +66,30 @@ export const FitnessProvider: React.FC<{ children: React.ReactNode }> = ({ child
     ));
   };
 
+  const addCustomWorkout = (workout: Omit<WorkoutRoutine, 'id'>) => {
+    const newWorkout = { ...workout, id: Math.random().toString(36).substr(2, 9), isCustom: true };
+    const updated = [...customWorkouts, newWorkout as WorkoutRoutine];
+    setCustomWorkouts(updated);
+    localStorage.setItem('studiofitness_custom_workouts', JSON.stringify(updated));
+  };
+
+  const deleteCustomWorkout = (id: string) => {
+    const updated = customWorkouts.filter(w => w.id !== id);
+    setCustomWorkouts(updated);
+    localStorage.setItem('studiofitness_custom_workouts', JSON.stringify(updated));
+  };
+
   return (
-    <FitnessContext.Provider value={{ classes, userBookings, bookClass, cancelBooking }}>
+    <FitnessContext.Provider value={{ 
+      classes, 
+      userBookings, 
+      customWorkouts, 
+      predefinedWorkouts: PREDEFINED_WORKOUTS,
+      bookClass, 
+      cancelBooking,
+      addCustomWorkout,
+      deleteCustomWorkout
+    }}>
       {children}
     </FitnessContext.Provider>
   );
