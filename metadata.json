@@ -1,0 +1,7 @@
+{
+  "name": "Copy of StudioFitness App",
+  "description": "A premium gym management application featuring class booking, weight tracking, membership management with Stripe, and personalized fitness achievements.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
